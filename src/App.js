@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Jogo from "./Components/Jogo";
 import Letras from "./Components/Letras";
-import Palavras from "./Palavras";
+import palavras from "./palavras";
 
 const App = () => {
   const [isbutton, setIsButton] = useState(true);
@@ -38,8 +38,8 @@ const App = () => {
     }
   };
   const randomWord = () => {
-    const randomIndex = Math.floor(Math.random() * Palavras.length);
-    const aleatoryWord = Palavras[randomIndex];
+    const randomIndex = Math.floor(Math.random() * palavras.length);
+    const aleatoryWord = palavras[randomIndex];
     return aleatoryWord;
   };
 
