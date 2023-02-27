@@ -1,4 +1,5 @@
 const Letra = (props) => {
+    console.log(props)
   const isLetterUsed = (letter) => (props.usedLetters || []).includes(letter);
 
   return (
@@ -6,7 +7,7 @@ const Letra = (props) => {
       data-test="letter"
       className={props.className ? "letterButtonActive" : "letterButton"}
       onClick={props.checkLetter}
-      disabled={props.disabled || isLetterUsed(props.list.value)}
+      disabled={props.disabled || isLetterUsed(props.list.value) || props.gameEnded}
     >
       {props.list}
     </button>

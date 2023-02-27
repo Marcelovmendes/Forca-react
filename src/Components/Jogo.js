@@ -12,7 +12,7 @@ const Jogo = (props) => {
   const img = [forca0, forca1, forca2, forca3, forca4, forca5, forca6];
   const maxErrors = img.length;
   const imgSrc =
-    props.error < maxErrors ? img[props.error] : img[maxErrors - 1];
+    props.error < maxErrors ? img[props.error] : img[maxErrors-1];
   const gameLost = props.error >= maxErrors;
 
   let wordClass = allCorrect()
@@ -20,13 +20,13 @@ const Jogo = (props) => {
     : props.gameOver
     ? "word red"
     : "word";
-  function allCorrect() {
-    return props.chosenWord.every((letter) => letter.ok);
-  }
 
-  if (props.gameOver && !allCorrect()) {
-    wordClass += " red";
-  }
+    function allCorrect() {
+      return props.chosenWord.every((letter) => letter);
+    }
+    if (props.gameOver || !allCorrect()) {
+      wordClass += " red";
+    }
 
   return (
     <div className="container">

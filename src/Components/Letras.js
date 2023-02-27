@@ -2,7 +2,7 @@ import Letra from "./Letra";
 
 const Letras = (props) => {
   console.log(props);
-  const { activeButton, disabled, checkLetter, isLetterUsed } = props;
+  const { activeButton, disabled, checkLetter, isLetterUsed, gameEnded } = props;
   const items = [
     "a",
     "b",
@@ -39,7 +39,7 @@ const Letras = (props) => {
           key={letter}
           list={letter}
           className={activeButton}
-          disabled={disabled || isLetterUsed.includes(letter)}
+          disabled={disabled || isLetterUsed.includes(letter) || gameEnded}
           checkLetter={() => checkLetter(letter)}
           isLetterUsed={isLetterUsed}
         />

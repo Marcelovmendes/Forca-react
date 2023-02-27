@@ -13,6 +13,7 @@ const App = () => {
   const [clickedLetters, setClickedLetters] = useState([]);
   const [buttonON, setButtonON] = useState(false);
   const [usedLetters, setUsedLetters] = useState([]);
+  const [gameEnded,setGameEnded]= useState(false)
   console.log(chosenWord);
 
   const handleClickButton = () => {
@@ -26,6 +27,9 @@ const App = () => {
     setGameWon(false);
     setShowWord(false);
     setButtonON(true);
+    setGameEnded(false);
+
+    
   };
 
   const checkLetter = (letter) => {
@@ -44,6 +48,7 @@ const App = () => {
     }
     setClickedLetters([...clickedLetters, letter]);
     setUsedLetters([...usedLetters, letter]);
+    checkGame();
   };
    
 
@@ -58,9 +63,11 @@ const App = () => {
     let allCorrect = chosenWord.every((letter) => letter.ok);
     if (allCorrect) {
       setGameWon(true);
+      setGameEnded(true)
     } else if (errors >= 6) {
       setGameOver(true);
       setShowWord(true);
+      setGameEnded(true)
     }
   };
 
@@ -76,11 +83,12 @@ const App = () => {
       />
       <Letras
         activeButton={buttonON}
-        disabled={isbutton || gameOver}
+        disabled={isbutton}
         checkLetter={checkLetter}
         checkGame={checkGame}
         isLetterUsed={usedLetters}
         clickedLetters={clickedLetters}
+        gameEnded={gameEnded}
       />
     </>
   );
