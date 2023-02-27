@@ -11,9 +11,10 @@ const App = () => {
   const [gameWon, setGameWon] = useState(false);
   const [showWord, setShowWord] = useState(false);
   const [clickedLetters, setClickedLetters] = useState([]);
-  const [buttonON, setButtonON]= useState(false);
+  const [buttonON, setButtonON] = useState(false);
+  const [usedLetters, setUsedLetters] = useState([]);
+  console.log(chosenWord);
 
- console.log(buttonON) 
   const handleClickButton = () => {
     setIsButton(false);
     const getword = randomWord();
@@ -24,14 +25,13 @@ const App = () => {
     setGameOver(false);
     setGameWon(false);
     setShowWord(false);
-    setButtonON(true)
+    setButtonON(true);
   };
-  
 
   const checkLetter = (letter) => {
     let ok = false;
-
     const newWord = chosenWord.map((l) => {
+
       if (l.value === letter) {
         ok = true;
         return { ...l, ok: true };
@@ -42,12 +42,15 @@ const App = () => {
     if (!ok) {
       setErrors(errors + 1);
     }
-    setClickedLetters([...clickedLetters,letter])
+    setClickedLetters([...clickedLetters, letter]);
+    setUsedLetters([...usedLetters, letter]);
   };
-  
+   
+
   const randomWord = () => {
     const randomIndex = Math.floor(Math.random() * palavras.length);
     const aleatoryWord = palavras[randomIndex];
+    setUsedLetters([]);
     return aleatoryWord;
   };
 
@@ -71,7 +74,14 @@ const App = () => {
         gameWon={gameWon}
         showWord={showWord}
       />
-      <Letras activeButton={buttonON} disabled={isbutton || gameOver} checkLetter={checkLetter} checkGame={checkGame} clickedLetters={clickedLetters}/>
+      <Letras
+        activeButton={buttonON}
+        disabled={isbutton || gameOver}
+        checkLetter={checkLetter}
+        checkGame={checkGame}
+        isLetterUsed={usedLetters}
+        clickedLetters={clickedLetters}
+      />
     </>
   );
 };
