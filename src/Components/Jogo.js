@@ -9,22 +9,34 @@ import forca6 from "../assets/forca6.png";
 import Words from "./Words";
 
 const Jogo = (props) => {
-  console.log(props)
   const img = [forca0, forca1, forca2, forca3, forca4, forca5, forca6];
-  const imgSrc= img[props.error];
+  const maxErrors= img.length
+  const imgSrc= props.error < maxErrors ? img[props.error]: img[maxErrors - 1]
+  const gameLost = props.error >= maxErrors;
+
+  let wordClass = allCorrect() ? "word green" : props.gameOver ? "word red" : "word";
+  function allCorrect() {
+    return props.chosenWord.every((letter) => letter.ok);
+  }
+
+  if (props.gameOver && !allCorrect()) {
+    wordClass += " red";
+  }
+
+
   return (
     <div className="container">
       <div className="game">
-      <img data-test="game-image" src={imgSrc}/>
+      <img data-test="game-image" src={imgSrc} alt={`Forca ${props.error} de 6`}/>
       </div>
       <div className="sidebar">
         <button className="start" onClick={props.startgame} data-test="choose-word">
           <h1>Escolher Palavra</h1>
         </button>
-        <div className="word" data-test="word">
-          {props.chosenword.map((letter, i) => (
+        <div className={wordClass} data-test="word">
+          {props.chosenWord.map((letter, i) => (
             <span key={i}>
-              <Words value={letter.value.split()} ok={letter.ok} />
+              <Words value={letter.value} ok={letter.ok} shoWord={(gameLost && !letter.ok) || (!gameLost && props.gameOver && letter.ok)} gameLost={gameLost} />
             </span>
           ))}
         </div>

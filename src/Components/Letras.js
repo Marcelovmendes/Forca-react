@@ -1,5 +1,7 @@
 import Letra from "./Letra";
+
 const Letras = (props) => {
+  console.log(props)
   const items = [
     "a",
     "b",
@@ -32,7 +34,7 @@ const Letras = (props) => {
   return (
     <div className="alphabet">
       {items.map((letter) => (
-        <Letra key={letter} list={letter} disabled={props.disabled} checkLetter={()=>props.checkLetter(letter)}/>
+        <Letra key={letter} list={letter} className={props.activeButton} disabled={props.disabled} checkLetter={()=>props.checkLetter(letter)}/>
       ))}
     </div>
   );

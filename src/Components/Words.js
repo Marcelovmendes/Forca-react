@@ -1,5 +1,11 @@
-const Words=(props)=>{
-    return <span>{props.ok ? props.value : "_"}</span>;
-}
+import React from "react";
 
-export default Words
+const Words = (props) => {
+  return (
+    <span className={props.shoWord || (props.gameLost && !props.ok) ? "red" : ""}>
+      {props.ok ? props.value : props.gameLost ? <span style={{ color: "red" }}>{props.value}</span> : "_"}
+    </span>
+  );
+};
+
+export default Words;
